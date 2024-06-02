@@ -65,3 +65,12 @@ jobs:
       - name: Test Local Action
         id: test-action
         uses: ./
+
+      - name: Upload Coverage Report
+        id: report
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.txt
+          fail_ci_if_error: true
+          verbose: true
