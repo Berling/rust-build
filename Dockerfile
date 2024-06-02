@@ -1,6 +1,7 @@
 FROM rust:latest
 
-RUN rustup component add clippy llvm-tools-preview && \
+RUN apt update && apt install -y jq \
+    rustup component add clippy llvm-tools-preview && \
     rustup +nightly component add miri rust-src && \
     cargo install cargo-binutils
 
