@@ -1,0 +1,5 @@
+name: 'Rust Build'
+description: 'Build rust project with lints and run tests with code coverage'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
