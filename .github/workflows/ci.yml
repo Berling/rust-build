@@ -50,7 +50,7 @@ jobs:
         id: run
         run: |
           docker run \
-            --rm ${{ env.TEST_TAG }}
+            --rm ${{ env.TEST_TAG }} \
             -v ${{ github.workspace }}:/github/workspace
 
   test-action:
