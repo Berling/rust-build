@@ -1,7 +1,7 @@
 FROM rust:latest
 
 RUN rustup component add clippy && \
-    rustup +nightly component add miri
+    rustup +nightly component add miri rust-src
 
 COPY entrypoint.sh /entrypoint.sh
 
