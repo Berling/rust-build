@@ -1,14 +1,12 @@
 #!/bin/sh
 
-set -x
-
 cd /github/workspace
 
-cargo build --verbose
-cargo clippy --all-targets --all-features -- -A dead-code -D warnings -W clippy::pedantic
-cargo +nightly miri test
-RUSTFLAGS="-C instrument-coverage" cargo test --tests
-cargo profdata -- merge -sparse default_*.profraw -o merged.profdata
+cargo build --verbose || exit
+cargo clippy --all-targets --all-features -- -A dead-code -D warnings -W clippy::pedantic || exit
+cargo +nightly miri test || exit
+RUSTFLAGS="-C instrument-coverage" cargo test --tests || exit
+cargo profdata -- merge -sparse default_*.profraw -o merged.profdata || exit
 cargo cov -- export \
   $( \
     for file in \
@@ -24,4 +22,4 @@ cargo cov -- export \
       [[ -x $file ]] && printf "%s %s " -object $file; \
     done \
   ) \
-  --instr-profile=merged.profdata --ignore-filename-regex=/.cargo/registry --ignore-filename-regex=/rust --format=lcov > coverage.txt
+  --instr-profile=merged.profdata --ignore-filename-regex=/.cargo/registry --ignore-filename-regex=/rust --format=lcov > coverage.txt || exit
