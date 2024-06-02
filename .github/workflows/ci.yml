@@ -51,7 +51,7 @@ jobs:
         run: |
           docker run \
             --rm ${{ env.TEST_TAG }}
-            --mount type=bind,source=${{ github.workspace }},target=/github/workspace
+            -v ${{ github.workspace }}:/github/workspace
 
   test-action:
     name: GitHub Actions Test
