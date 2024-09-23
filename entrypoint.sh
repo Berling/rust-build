@@ -23,4 +23,3 @@ cargo cov -- export \
     done \
   ) \
   --instr-profile=merged.profdata --ignore-filename-regex=/.cargo/registry --ignore-filename-regex=/rust --format=lcov > coverage.txt || exit
-lcov_cobertura coverage.txt -o copverage.xml
