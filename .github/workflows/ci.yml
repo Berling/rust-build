@@ -80,7 +80,7 @@ jobs:
         run: |
           set -x
           export REPO_NAME=$(echo "${{ github.repository }}" | sed -e "s/^${{ github.repository_owner }}\///")
-          export TOTAL_COVERAGE=$(curl --location --request GET 'https://codecov.io/api/v2/github/${{ github.repository_owner }}/repos/$REPO_NAME/totals?branch=${{ github.ref_name }}' --header 'Authorization: bearer ${{ secrets.CODECOV_API_TOKEN }}' | jq .totals.coverage)
+          export TOTAL_COVERAGE=$(curl --location --request GET 'https://codecov.io/api/v2/github/${{ github.repository_owner }}/repos/${REPO_NAME}/totals?branch=${{ github.ref_name }}' --header 'Authorization: bearer ${{ secrets.CODECOV_API_TOKEN }}' | jq .totals.coverage)
           if [ "$(echo "$TOTAL_COVERAGE < 80.0" | bc)" -eq 1  ]; then
             exit 1
           fi
