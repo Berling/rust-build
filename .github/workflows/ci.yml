@@ -74,3 +74,12 @@ jobs:
           files: ./coverage.txt
           fail_ci_if_error: true
           verbose: true
+
+      - name: Check Total Coverage
+        id: total-coverage
+        run: |
+          export REPO_NAME=$(echo "$GITHUB_REPOSITORY" | sed -e "s/^$GITHUB_REPOSITORY_OWNER\///")
+          export TOTAL_COVERAGE=$(curl --location --request GET 'https://codecov.io/api/v2/github/$GITHUB_REPOSITORY_OWNER/repos/pbrt/totals?branch=$GITHUB_REF_NAME' --header 'Authorization: bearer $CODECOV_API_TOKEN' | jq .totals.coverage)
+          if [ "$(echo "$TOTAL_COVERAGE < 80.0" | bc)" -eq 1  ]; then
+            exit 1
+          fi
