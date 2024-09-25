@@ -77,7 +77,7 @@ jobs:
 
       - name: Check Total Coverage
         id: total-coverage
-        uses: Berling/codecov-check@main
+        uses: Berling/codecov-check@v2
         with:
           token: ${{ secrets.CODECOV_API_TOKEN }}
           threshold: 80.0
